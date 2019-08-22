@@ -1,0 +1,9 @@
+{
+  "name": "dos-common",
+  "description": "javascript commonly used library",
+  "main": "index.js",
+  "repository": "https://github.com/DoersSquare/dos-common.git",
+  "author": "kouzouman <check@doers-square.com>",
+  "license": "MIT",
+  "version": "0.0.1"
+}
