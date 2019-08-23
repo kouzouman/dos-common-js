@@ -31,7 +31,7 @@ var DosCommon = function () {
       stackIndex = stackIndex - 0 || 1;
 
       Error.stackTraceLimit = stackIndex + 1;
-      Error.captureStackTrace(this, cf.getCaller);
+      Error.captureStackTrace(this, DosCommon.getCaller);
 
       Error.prepareStackTrace = function (_, stack) {
         var caller = stack[stackIndex];
@@ -69,7 +69,7 @@ var DosCommon = function () {
       if (typeof obj === "undefined") return true;
       if (obj === null) return true;
       if (obj === "") return true;
-      if (cf.isArray(obj) && obj.lengtu == 0) return true;
+      if (DosCommon.isArray(obj) && obj.lengtu == 0) return true;
       if (typeof obj === "string" && obj == "") return true;
 
       return true;
@@ -82,7 +82,7 @@ var DosCommon = function () {
   }, {
     key: "extendMethod",
     value: function extendMethod(object, methodName, method) {
-      if (!cf.isEmpty(object.prototype[methodName])) return;
+      if (!DosCommon.isEmpty(object.prototype[methodName])) return;
       try {
         if (typeof Object.defineProperty !== "function") {
           object.prototype[methodName] = method;
