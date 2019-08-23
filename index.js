@@ -1,1 +1,1 @@
-module.exports = require("./src/dos-common.js");
+module.exports = require("./dist/dos-common.js");
