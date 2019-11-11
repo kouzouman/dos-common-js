@@ -32,6 +32,24 @@ export default class DosCommon {
   }
 
   /**
+   * ランダム値を取得
+   * @param {*} max
+   */
+  static getRandom(max) {
+    return DosCommon.getRandom(0, max);
+  }
+
+  /**
+   * ランダム値を取得
+   * @param {*} max
+   */
+  static getRandom(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  /**
    * オブジェクトが配列かどうか確認する
    * 配列の場合True
    */
