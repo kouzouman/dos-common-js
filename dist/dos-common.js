@@ -44,7 +44,7 @@ class DosCommon {
 
 
   static getRandom(max) {
-    return DosCommon.getRandom(0, max);
+    return DosCommon.getRandomMinMax(0, max);
   }
   /**
    * ランダム値を取得
@@ -52,7 +52,7 @@ class DosCommon {
    */
 
 
-  static getRandom(min, max) {
+  static getRandomMinMax(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
