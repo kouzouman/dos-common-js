@@ -120,6 +120,19 @@ class DosCommon {
 
     return result;
   }
+  /**
+   * 指定秒間Sleepする
+   * @param {*} sec
+   */
+
+
+  static sleep(sec) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        return resolve(sec);
+      }, sec * 1000);
+    });
+  }
 
 }
 
