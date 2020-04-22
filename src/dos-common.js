@@ -16,7 +16,7 @@ export default class DosCommon {
     Error.stackTraceLimit = stackIndex + 1;
     Error.captureStackTrace(this, DosCommon.getCaller);
 
-    Error.prepareStackTrace = function(_, stack) {
+    Error.prepareStackTrace = function (_, stack) {
       var caller = stack[stackIndex];
       callerInfo.file = caller.getFileName();
       callerInfo.line = caller.getLineNumber();
@@ -82,7 +82,7 @@ export default class DosCommon {
         Object.defineProperty(object.prototype, methodName, {
           configurable: false,
           enumerable: false,
-          value: method
+          value: method,
         });
       }
     } catch (e) {
@@ -100,7 +100,7 @@ export default class DosCommon {
       if (typeof obj[key] != "function" && typeof obj[key] != "undefined")
         result.push({
           key,
-          value: obj[key]
+          value: obj[key],
         });
     }
     return result;
@@ -116,5 +116,40 @@ export default class DosCommon {
         return resolve(sec);
       }, sec * 1000);
     });
+  }
+
+  /**
+   * ifファンクション
+   * @param {*} condition
+   */
+  static _if(condition) {
+    const thenMethod = (thenFunc) => {
+      const elseMethod = (elseFunc) => {
+        return condition ? thenFunc() : elseFunc();
+      };
+      return { else: elseMethod };
+    };
+    return { then: thenMethod };
+  }
+
+  /**
+   * switchファンクション
+   * @param {*} switchVal
+   */
+  static _switch(switchVal) {
+    const caseMethod = (funcToDo) => (caseVal) => {
+      const isFixedNow = !funcToDo && switchVal === caseVal;
+      const thenMethod = (funcToDo, isFixedNow) => (thenFunc) => {
+        const defaultMethod = (funcToDo) => (defaultFunc) => {
+          return (funcToDo || defaultFunc)();
+        };
+        return {
+          case: caseMethod(isFixedNow ? thenFunc : funcToDo),
+          default: defaultMethod(isFixedNow ? thenFunc : funcToDo),
+        };
+      };
+      return { then: thenMethod(funcToDo, isFixedNow) };
+    };
+    return { case: caseMethod() };
   }
 }

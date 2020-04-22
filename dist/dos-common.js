@@ -133,6 +133,57 @@ class DosCommon {
       }, sec * 1000);
     });
   }
+  /**
+   * ifファンクション
+   * @param {*} condition
+   */
+
+
+  static _if(condition) {
+    const thenMethod = thenFunc => {
+      const elseMethod = elseFunc => {
+        return condition ? thenFunc() : elseFunc();
+      };
+
+      return {
+        else: elseMethod
+      };
+    };
+
+    return {
+      then: thenMethod
+    };
+  }
+  /**
+   * switchファンクション
+   * @param {*} switchVal
+   */
+
+
+  static _switch(switchVal) {
+    const caseMethod = funcToDo => caseVal => {
+      const isFixedNow = !funcToDo && switchVal === caseVal;
+
+      const thenMethod = (funcToDo, isFixedNow) => thenFunc => {
+        const defaultMethod = funcToDo => defaultFunc => {
+          return (funcToDo || defaultFunc)();
+        };
+
+        return {
+          case: caseMethod(isFixedNow ? thenFunc : funcToDo),
+          default: defaultMethod(isFixedNow ? thenFunc : funcToDo)
+        };
+      };
+
+      return {
+        then: thenMethod(funcToDo, isFixedNow)
+      };
+    };
+
+    return {
+      case: caseMethod()
+    };
+  }
 
 }
 
