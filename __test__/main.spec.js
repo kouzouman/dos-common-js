@@ -4,8 +4,7 @@ import cf from "./../index";
 // const DosFileSystem = require('./../src/dos-file-system')
 
 test("_if", () => {
-  const str = cf
-    ._if(true)
+  const str = _if(true)
     .then(() => "abc")
     .else(() => "123");
 
@@ -13,8 +12,7 @@ test("_if", () => {
 });
 
 test("_switch", () => {
-  const str1 = cf
-    ._switch(1)
+  const str1 = _switch(1)
     .case(1)
     .then(() => "a")
     .case(2)
@@ -29,8 +27,7 @@ test("_switch", () => {
 
   expect(str1).toBe("a");
 
-  const str2 = cf
-    ._switch(99)
+  const str2 = _switch(99)
     .case(1)
     .then(() => "a")
     .case(2)
@@ -44,4 +41,12 @@ test("_switch", () => {
     .default(() => "z");
 
   expect(str2).toBe("z");
+});
+
+test("_try", () => {
+  const str = _try(() => {
+    throw "aaa";
+  }).catch((e) => "ok");
+
+  expect(str).toBe("ok");
 });

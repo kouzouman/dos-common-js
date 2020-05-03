@@ -4,10 +4,103 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+let _g = null;
 
+try {
+  _g = !!window ? window : {};
+} catch (e) {
+  _g = !!global ? global : {};
+}
+/**
+ * If関数
+ */
+
+
+if (!_g._if) {
+  /**
+   * ifファンクション
+   * @param {*} condition
+   */
+  _g._if = condition => {
+    const thenMethod = thenFunc => {
+      const elseMethod = elseFunc => {
+        return condition ? thenFunc() : elseFunc();
+      };
+
+      return {
+        else: elseMethod
+      };
+    };
+
+    return {
+      then: thenMethod
+    };
+  };
+}
+/**
+ * Switch関数
+ */
+
+
+if (!_g._switch) {
+  /**
+   * switchファンクション
+   * @param {*} switchVal
+   */
+  _g._switch = switchVal => {
+    const caseMethod = funcToDo => caseVal => {
+      const isFixedNow = !funcToDo && switchVal === caseVal;
+
+      const thenMethod = (funcToDo, isFixedNow) => thenFunc => {
+        const defaultMethod = funcToDo => defaultFunc => {
+          return (funcToDo || defaultFunc)();
+        };
+
+        return {
+          case: caseMethod(isFixedNow ? thenFunc : funcToDo),
+          default: defaultMethod(isFixedNow ? thenFunc : funcToDo)
+        };
+      };
+
+      return {
+        then: thenMethod(funcToDo, isFixedNow)
+      };
+    };
+
+    return {
+      case: caseMethod()
+    };
+  };
+}
+/**
+ * try関数
+ */
+
+
+if (!_g._try) {
+  _g._try = execFunc => {
+    const catchMethod = catchFunc => {
+      try {
+        // console.log("try_");
+        const res = execFunc(); // console.log(res);
+
+        return res;
+      } catch (e) {
+        // console.log("catch");
+        return catchFunc(e);
+      }
+    };
+
+    return {
+      catch: catchMethod
+    };
+  };
+}
 /**
  * 共通のファンクション
  */
+
+
 class DosCommon {
   /**
    * 呼び出し元情報を取得
@@ -132,57 +225,6 @@ class DosCommon {
         return resolve(sec);
       }, sec * 1000);
     });
-  }
-  /**
-   * ifファンクション
-   * @param {*} condition
-   */
-
-
-  static _if(condition) {
-    const thenMethod = thenFunc => {
-      const elseMethod = elseFunc => {
-        return condition ? thenFunc() : elseFunc();
-      };
-
-      return {
-        else: elseMethod
-      };
-    };
-
-    return {
-      then: thenMethod
-    };
-  }
-  /**
-   * switchファンクション
-   * @param {*} switchVal
-   */
-
-
-  static _switch(switchVal) {
-    const caseMethod = funcToDo => caseVal => {
-      const isFixedNow = !funcToDo && switchVal === caseVal;
-
-      const thenMethod = (funcToDo, isFixedNow) => thenFunc => {
-        const defaultMethod = funcToDo => defaultFunc => {
-          return (funcToDo || defaultFunc)();
-        };
-
-        return {
-          case: caseMethod(isFixedNow ? thenFunc : funcToDo),
-          default: defaultMethod(isFixedNow ? thenFunc : funcToDo)
-        };
-      };
-
-      return {
-        then: thenMethod(funcToDo, isFixedNow)
-      };
-    };
-
-    return {
-      case: caseMethod()
-    };
   }
 
 }
