@@ -16,7 +16,7 @@ if (!_g._if) {
   _g._if = (condition) => {
     const thenMethod = (thenFunc) => {
       const elseMethod = (elseFunc) => {
-        return condition ? thenFunc() : elseFunc();
+        return !!condition ? thenFunc(condition) : elseFunc(condition);
       };
       return { else: elseMethod };
     };
