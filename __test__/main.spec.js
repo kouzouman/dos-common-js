@@ -11,6 +11,16 @@ test("_if", () => {
   expect(str).toBe("abc");
 });
 
+test("_asyncIf", async (done) => {
+  const str = await _asyncIf(true)
+    .then(async () => Promise.resolve("abc"))
+    .else(async () => Promise.resolve("123"));
+
+  expect(str).toBe("abc");
+
+  done();
+});
+
 test("_switch", () => {
   const str1 = _switch(1)
     .case(1)
@@ -49,4 +59,15 @@ test("_try", () => {
   }).catch((e) => "ok");
 
   expect(str).toBe("ok");
+});
+
+test("_asyncTry", async (done) => {
+  const str = await _asyncTry(async () => {
+    throw "aaa";
+  }).catch(async (e) => Promise.resolve("ok"));
+
+  console.log(str);
+  expect(str).toBe("ok");
+
+  done();
 });

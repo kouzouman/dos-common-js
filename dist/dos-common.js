@@ -47,8 +47,8 @@ if (!_g._asyncIf) {
    * ifファンクション
    * @param {*} condition
    */
-  _g._asyncIf = async condition => {
-    const thenMethod = async thenFunc => {
+  _g._asyncIf = condition => {
+    const thenMethod = thenFunc => {
       const elseMethod = async elseFunc => {
         return !!condition ? await thenFunc(condition) : await elseFunc(condition);
       };
@@ -163,7 +163,7 @@ if (!_g._try) {
 
 
 if (!_g._asyncTry) {
-  _g._asyncTry = async execFunc => {
+  _g._asyncTry = execFunc => {
     const catchMethod = async catchFunc => {
       try {
         // console.log("try_");
