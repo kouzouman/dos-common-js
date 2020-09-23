@@ -50,7 +50,7 @@ if (!_g._asyncIf) {
   _g._asyncIf = async condition => {
     const thenMethod = async thenFunc => {
       const elseMethod = async elseFunc => {
-        return (await !!condition) ? thenFunc(condition) : elseFunc(condition);
+        return !!condition ? await thenFunc(condition) : await elseFunc(condition);
       };
 
       return {
