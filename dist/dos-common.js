@@ -38,6 +38,32 @@ if (!_g._if) {
   };
 }
 /**
+ * async If関数
+ */
+
+
+if (!_g._asyncIf) {
+  /**
+   * ifファンクション
+   * @param {*} condition
+   */
+  _g._asyncIf = async condition => {
+    const thenMethod = async thenFunc => {
+      const elseMethod = async elseFunc => {
+        return (await !!condition) ? thenFunc(condition) : elseFunc(condition);
+      };
+
+      return {
+        else: elseMethod
+      };
+    };
+
+    return {
+      then: thenMethod
+    };
+  };
+}
+/**
  * Switch関数
  */
 
@@ -73,6 +99,41 @@ if (!_g._switch) {
   };
 }
 /**
+ * async-Switch関数
+ */
+
+
+if (!_g._asyncSwitch) {
+  /**
+   * switchファンクション
+   * @param {*} switchVal
+   */
+  _g._asyncSwitch = async switchVal => {
+    const caseMethod = async funcToDo => async caseVal => {
+      const isFixedNow = !funcToDo && switchVal === caseVal;
+
+      const thenMethod = async (funcToDo, isFixedNow) => async thenFunc => {
+        const defaultMethod = async funcToDo => async defaultFunc => {
+          return await (funcToDo || defaultFunc)();
+        };
+
+        return {
+          case: await caseMethod(isFixedNow ? thenFunc : funcToDo),
+          default: await defaultMethod(isFixedNow ? thenFunc : funcToDo)
+        };
+      };
+
+      return {
+        then: await thenMethod(funcToDo, isFixedNow)
+      };
+    };
+
+    return {
+      case: await caseMethod()
+    };
+  };
+}
+/**
  * try関数
  */
 
@@ -88,6 +149,30 @@ if (!_g._try) {
       } catch (e) {
         // console.log("catch");
         return catchFunc(e);
+      }
+    };
+
+    return {
+      catch: catchMethod
+    };
+  };
+}
+/**
+ * async-try関数
+ */
+
+
+if (!_g._asyncTry) {
+  _g._asyncTry = async execFunc => {
+    const catchMethod = async catchFunc => {
+      try {
+        // console.log("try_");
+        const res = await execFunc(); // console.log(res);
+
+        return res;
+      } catch (e) {
+        // console.log("catch");
+        return await catchFunc(e);
       }
     };
 
