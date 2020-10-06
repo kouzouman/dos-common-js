@@ -256,4 +256,18 @@ export default class DosCommon {
       }, sec * 1000);
     });
   }
+
+  /**
+   * コマンド実行
+   * @param {*} command
+   */
+  static async execCommand(command) {
+    return new Promise((resolve, reject) => {
+      const { exec } = require("child_process");
+      exec(command, (err, stdout, stderr) => {
+        if (err) return reject(stderr);
+        else return resolve(stdout);
+      });
+    });
+  }
 }

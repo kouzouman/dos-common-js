@@ -66,8 +66,17 @@ test("_asyncTry", async (done) => {
     throw "aaa";
   }).catch(async (e) => Promise.resolve("ok"));
 
-  console.log(str);
   expect(str).toBe("ok");
 
+  done();
+});
+
+test("execCommand", async (done) => {
+  try {
+    const res = await cf.execCommand("dir");
+    expect(res.indexOf("src") >= 0).toBe(true);
+  } catch (e) {
+    console.log(e);
+  }
   done();
 });
