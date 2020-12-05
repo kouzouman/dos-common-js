@@ -5,13 +5,13 @@
   "repository": "https://github.com/kouzouman/dos-common-js.git",
   "author": "kouzouman <check@doers-square.com>",
   "license": "MIT",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "devDependencies": {
-    "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/register": "^7.11.5",
-    "jest": "^26.4.2"
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/register": "^7.12.1",
+    "jest": "^26.6.3"
   },
   "scripts": {
     "build": "./node_modules/.bin/babel src --out-dir dist",

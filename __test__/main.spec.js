@@ -71,12 +71,12 @@ test("_asyncTry", async (done) => {
   done();
 });
 
-test("execCommand", async (done) => {
-  try {
-    const res = await cf.execCommand("dir");
-    expect(res.indexOf("src") >= 0).toBe(true);
-  } catch (e) {
-    console.log(e);
-  }
-  done();
-});
+// test("execCommand", async (done) => {
+//   try {
+//     const res = await cf.execCommand("dir");
+//     expect(res.indexOf("src") >= 0).toBe(true);
+//   } catch (e) {
+//     console.log(e);
+//   }
+//   done();
+// });
