@@ -231,6 +231,26 @@ export default class DosCommon {
   }
 
   /**
+   *  メソッドの拡張
+   */
+  static forceExtendMethod(object, methodName, method) {
+    try {
+      if (typeof Object.defineProperty !== "function") {
+        object.prototype[methodName] = method;
+      } else {
+        Object.defineProperty(object.prototype, methodName, {
+          configurable: false,
+          enumerable: false,
+          value: method,
+        });
+      }
+    } catch (e) {
+      return;
+    }
+    return;
+  }
+
+  /**
    * オブジェクトをKeyValueのArrayに変換
    */
   static Object2Array(obj) {

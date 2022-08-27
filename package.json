@@ -5,7 +5,7 @@
   "repository": "https://github.com/kouzouman/dos-common-js.git",
   "author": "kouzouman <check@doers-square.com>",
   "license": "MIT",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "devDependencies": {
     "@babel/cli": "^7.12.8",
     "@babel/core": "^7.12.9",

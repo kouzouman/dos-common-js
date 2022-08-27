@@ -62,11 +62,17 @@ test("_try", () => {
 });
 
 test("_asyncTry", async (done) => {
-  const str = await _asyncTry(async () => {
+  const str1 = await _asyncTry(async () => {
+    return Promise.resolve(true);
+  }).catch(async (e) => Promise.reject(false));
+
+  expect(str1).toBe(true);
+
+  const str2 = await _asyncTry(async () => {
     throw "aaa";
   }).catch(async (e) => Promise.resolve("ok"));
 
-  expect(str).toBe("ok");
+  expect(str2).toBe("ok");
 
   done();
 });
